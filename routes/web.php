@@ -1,11 +1,16 @@
 <?php
 
-use App\Http\Controllers\MyController0001;
-use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Auth\AdminController;
 use App\Http\Controllers\CategoriesController0001;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MyController0001;
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\ProductsController0001;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -124,34 +129,40 @@ Route::middleware(['auth'])->group( function () {
         'middleware' => 'is_admin',
         'as'         => 'admin.'  ,
     ], static function () {
-        Route::get('admin', '\Auth\AdminController@index')->name('index');
+        Route::controller(AdminController::class)->group( function () {
+            Route::get('admin', 'index')->name('index');
+        });
     });
 
     Route::group([
         'prefix' => 'user' ,
         'as'     => 'user.',
     ], static function () {
-
         //                            Categories & Products PAGE
-        Route::get('/categories',      'CategoriesController0001@Categories')->name('get_categories');
-        Route::get('/categories/{id}', 'CategoriesController0001@Category')  ->name('get_category');
-        Route::get('/products',        'ProductsController0001@Products')    ->name('get_products');
-        Route::get('/products/{id}',   'ProductsController0001@Product')     ->name('get_product');
+        Route::controller(CategoriesController0001::class)->group( function () {
+            Route::get('/categories',      'Categories') ->name('get_categories');
+            Route::get('/categories/{id}', 'Category')   ->name('get_category');
+        });
+        Route::controller(ProductsController0001::class)->group( function () {
+            Route::get('/products',        'Products')   ->name('get_products');
+            Route::get('/products/{id}',   'Product')    ->name('get_product');
+        });
 
 
         //                            Orders & OrderItems PAGE
-        Route::resource('orders',      'OrderController');
-        Route::resource('order-items', 'OrderItemController');
-
+        Route::resource('orders',      OrderController::class);
+        Route::resource('order-items', OrderItemController::class);
 
         //                            Tasks PAGE
-        Route::get   ('/tasks',               'TaskController@index')      ->name('tasks_main_page');
-        Route::get   ('/task/{task_id}/info', 'TaskController@task_info')  ->name('task_info_page');
-        Route::post  ('/task',                'TaskController@post')       ->name('post_a_task');
-        Route::post  ('/task/{task_id}',      'TaskController@rate_a_task')->name('rate_a_task');
-        Route::get   ('/task/{task?}',        'TaskController@task_form')  ->name('task_form_page');
-        Route::put   ('/task/{task}',         'TaskController@update')     ->name('update_a_task');
-        Route::delete('/task/delete/{task}',  'TaskController@delete')     ->name('delete_a_task');
+        Route::controller(TaskController::class)->group( function () {
+            Route::get   ('/tasks',               'index')      ->name('tasks_main_page');
+            Route::get   ('/task/{task_id}/info', 'task_info')  ->name('task_info_page');
+            Route::post  ('/task',                'post')       ->name('post_a_task');
+            Route::post  ('/task/{task_id}',      'rate_a_task')->name('rate_a_task');
+            Route::get   ('/task/{task?}',        'task_form')  ->name('task_form_page');
+            Route::put   ('/task/{task}',         'update')     ->name('update_a_task');
+            Route::delete('/task/delete/{task}',  'delete')     ->name('delete_a_task');
+        });
     });
 });
 
