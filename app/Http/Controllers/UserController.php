@@ -10,12 +10,12 @@ use Illuminate\Support\Facades\Mail;
 //use Illuminate\Auth\SessionGuard;
 use Illuminate\Support\Str;
 use GuzzleHttp\Client;
-use App\User;
+use App\Models\User;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Mail\EmailVerificationMail;
 use App\Mail\ForgetPasswordMail;
-use App\PasswordReset;
+use App\Models\PasswordReset;
 use Carbon\Carbon;
 
 

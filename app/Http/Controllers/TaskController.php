@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TaskPostRequest;
-use App\Product;
-use App\Task;
-use App\User;
+use App\Models\Product;
+use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use InvalidArgumentException;

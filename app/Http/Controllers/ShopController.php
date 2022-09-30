@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
-use App\OrderItem;
-use App\Product;
-use App\User;
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;

@@ -6,8 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\DB;
-use App\Category;
-use App\Product;
+use App\Models\Category;
+use App\Models\Product;
 
 class CategoriesController0001 extends Controller
 {
