@@ -70,17 +70,17 @@ class User extends Authenticatable
 
     public function orders()
     {
-        return $this->hasMany('App\Order');
+        return $this->hasMany(Order::class);
     }
 
     public function tasks()
     {
-        return $this->hasMany('App\Task');
+        return $this->hasMany(Task::class);
     }
 
     public function ratings()
     {
-        return $this->hasMany('App\Rating');
+        return $this->hasMany(Rating::class);
     }
 
     public function roles()

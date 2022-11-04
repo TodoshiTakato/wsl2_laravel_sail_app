@@ -80,13 +80,13 @@ class Task extends Model
      */
     public function ratings()
     {
-//        return $this->hasMany('App\Rating')->avg('rating');
-        return $this->hasMany('App\Rating');
+//        return $this->hasMany(Rating::class)->avg('rating');
+        return $this->hasMany(Rating::class);
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 
 }

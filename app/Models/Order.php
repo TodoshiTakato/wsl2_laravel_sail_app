@@ -35,11 +35,11 @@ class Order extends Model
 
     public function order_items()
     {
-        return $this->hasMany('App\OrderItem');
+        return $this->hasMany(OrderItem::class);
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(User::class);
     }
 }

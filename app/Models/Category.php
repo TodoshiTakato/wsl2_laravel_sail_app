@@ -35,14 +35,14 @@ class Category extends Model {
     }
 
     public function parent_category() {
-        return $this->hasOne('App\Category', 'parent_id');
+        return $this->hasOne(self::class, 'parent_id', 'id');
     }
     public function child_category() {
-        return $this->belongsTo('App\Category', 'parent_id');
+        return $this->belongsTo(self::class, 'parent_id', 'id');
     }
 
     public function products() {
-        return $this->hasMany('App\Product');
+        return $this->hasMany(Product::class);
     }
 
 }

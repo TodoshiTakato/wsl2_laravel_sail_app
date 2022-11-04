@@ -36,12 +36,12 @@ class Product extends Model
 
     public function category()
     {
-        return $this->belongsTo('App\Category');
+        return $this->belongsTo(Category::class);
     }
 
     public function order_item()
     {
-        return $this->hasMany('App\OrderItem');
+        return $this->hasMany(OrderItem::class);
     }
 
 //    public function getPriceAttribute($price)
