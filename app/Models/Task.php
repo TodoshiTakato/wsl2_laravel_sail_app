@@ -3,11 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+
+// Customized additions:
+
+// Factory:
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Database\Factories\Task\TaskFactory;
+
+// Other:
 use Illuminate\Support\Facades\Auth;
 use InvalidArgumentException;
 
 class Task extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
         'details',
@@ -18,6 +29,17 @@ class Task extends Model
         'time_spent',
         'user_id',
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     * Nurlan's comment: it is for faker, seeding and etc.
+     *
+     * @return Factory
+     */
+    protected static function newFactory()
+    {
+        return TaskFactory::new();
+    }
 
     /**
      * Rate the article.

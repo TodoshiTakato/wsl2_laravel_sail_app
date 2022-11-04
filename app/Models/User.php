@@ -4,9 +4,15 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+// Customized additions:
+
+// Factory:
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Database\Factories\User\UserFactory;
 
 class User extends Authenticatable
 {
@@ -50,6 +56,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     * Nurlan's comment: it is for faker, seeding and etc.
+     *
+     * @return Factory
+     */
+    protected static function newFactory()
+    {
+        return UserFactory::new();
+    }
 
     public function orders()
     {
