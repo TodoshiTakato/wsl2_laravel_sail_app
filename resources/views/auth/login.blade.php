@@ -20,7 +20,8 @@
                         @auth
                             <div><a href="{{ route('home') }}">Home</a></div>
                         @else
-                            <div><a href="{{ route('getLogin') }}">Login</a></div>
+                            <div></div>
+{{--                            <div><a href="{{ route('getLogin') }}">Login</a></div>--}}
 
                             @if (Route::has('getRegister'))
                                 <div><a href="{{ route('getRegister') }}">Register</a></div>
@@ -71,7 +72,7 @@
                     <div class="form-group row align-items-center">
                         <div class="col-3"></div>
                         <div class="col-7">
-                            <div class="g-recaptcha" data-sitekey="{{config('recapcha.GOOGLE_CAPTCHA_KEY')}}"
+                            <div class="g-recaptcha" data-sitekey="{{config('recapcha.google_re_captcha_site_key')}}"
                                  data-callback="recaptchaDataCallbackLogin"
                                  data-expired-callback="recaptchaExpireCallbackLogin">
                             </div>

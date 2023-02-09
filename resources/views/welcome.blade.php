@@ -45,8 +45,9 @@
                     <div><a href="/hello_user/some_variable">7. /hello_user/some_variable</a></div>
                     <div> {{-- style="grid-column: 2 / 4" --}}
                         <form action="/index.php" method="GET" autocomplete="on" id="var_form"
-                              oninput=" let new_link = '/user/'.concat(variable.value)
+                              oninput=" let new_link = '/hello_user/'.concat(variable.value)
                                     link.value = new_link
+                                    let myAnchor = document.getElementById('myAnchor');
                                     myAnchor.href = new_link">
                             @csrf
                             @method('GET')

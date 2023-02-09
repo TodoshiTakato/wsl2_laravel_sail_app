@@ -153,7 +153,7 @@
                     <div class="form-group row align-items-stretch w-100-1 justify-content-center">
                         <div class="w-35"></div>
                         <div class="w-40">
-                            <div class="g-recaptcha" data-sitekey="{{config('recapcha.GOOGLE_CAPTCHA_KEY')}}"
+                            <div class="g-recaptcha" data-sitekey="{{config('recapcha.google_re_captcha_site_key')}}"
                                  data-callback="recaptchaDataCallbackRegister"
                                  data-expired-callback="recaptchaExpireCallbackRegister"></div>
                             <input type="hidden" name="grecaptcha" id="hiddenInputRecaptchaRegister">

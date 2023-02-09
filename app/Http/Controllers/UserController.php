@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,10 +18,15 @@ use App\Mail\EmailVerificationMail;
 use App\Mail\ForgetPasswordMail;
 use App\Models\PasswordReset;
 use Carbon\Carbon;
+use JsonException;
 
 
 class UserController extends Controller
 {
+    /**
+     * @throws GuzzleException
+     * @throws JsonException
+     */
     private function verifyRecaptcha($request) {
         $grecaptcha=$request->grecaptcha;
         $client = new Client();
@@ -28,12 +34,12 @@ class UserController extends Controller
             "https://www.google.com/recaptcha/api/siteverify",
             ["form_params"=>
                 [
-                    "secret"=>env("GOOGLE_CAPTCHA_SECRET"),
+                    "secret"=>config('recapcha.google_re_captcha_secret_key'),
                     "response"=>$grecaptcha
                 ]
             ]
         );
-        return json_decode( (string)$response->getBody() );
+        return json_decode((string)$response->getBody(), false, 512, JSON_THROW_ON_ERROR);
     }
 
     public function getRegister() {  // Checked

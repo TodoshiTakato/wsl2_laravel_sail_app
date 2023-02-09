@@ -66,7 +66,7 @@ class MyController0001 extends Controller
     }
 
     public function parsed_http() {
-        $collection = Http::get('https://reqres.in/api/users?page=2');
+        $collection = Http::get('https://reqres.in/api/users?page=1&per_page=12');
         return view('hello.http', ['collection'=>$collection['data']]);
     }
 
