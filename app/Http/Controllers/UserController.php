@@ -15,7 +15,7 @@ use App\Models\User;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\LoginRequest;
 use App\Mail\EmailVerificationMail;
-use App\Mail\ForgetPasswordMail;
+//use App\Mail\ForgetPasswordMail;
 use App\Models\PasswordReset;
 use Carbon\Carbon;
 use JsonException;
@@ -104,9 +104,8 @@ class UserController extends Controller
         if (Auth::check()) {
             return redirect()->route("home");
         }
-        else {
-            return view("auth.login");
-        }
+
+        return view("auth.login");
     }
 
     public function postLogin(LoginRequest $request){  // Checked
@@ -186,25 +185,25 @@ class UserController extends Controller
         return view("auth.forget_password");
     }
 
-    public function postForgetPassword(Request $request){
-        $request->validate([
-            "email"=>"required|email"
-        ]);
-        $user=User::where("email",$request->email)->first();
-        if(!$user){
-            return redirect()->back()->with("error","User not found.");
-        }else{
-            $reset_code=Str::random(200);
-            PasswordReset::create([
-                "user_id"=>$user->id,
-                "reset_code"=>$reset_code
-            ]);
-            Mail::to($user->email)->send(new ForgetPasswordMail($user->first_name, $reset_code));
-            return redirect()
-                ->back()
-                ->with("success","We have sent you a password reset link. Please check your email.");
-        }
-    }
+//    public function postForgetPassword(Request $request){
+//        $request->validate([
+//            "email"=>"required|email"
+//        ]);
+//        $user=User::where("email",$request->email)->first();
+//        if(!$user){
+//            return redirect()->back()->with("error","User not found.");
+//        }else{
+//            $reset_code=Str::random(200);
+//            PasswordReset::create([
+//                "user_id"=>$user->id,
+//                "reset_code"=>$reset_code
+//            ]);
+//            Mail::to($user->email)->send(new ForgetPasswordMail($user->first_name, $reset_code));
+//            return redirect()
+//                ->back()
+//                ->with("success","We have sent you a password reset link. Please check your email.");
+//        }
+//    }
 
     public function getResetPassword($reset_code){
         $password_reset_data = PasswordReset::where("reset_code",$reset_code)->first();
@@ -265,12 +264,12 @@ class UserController extends Controller
         } else {
             if($user->email_verified_at){
                 return redirect()->route("getLogin")->with("error", "Email already verified");
-            } else {
-                $user->update([
-                    "email_verified_at"=>\Carbon\Carbon::now()
-                ]);
-                return redirect()->route("getLogin")->with("success", "Email successfully verified");
             }
+
+            $user->update([
+                "email_verified_at"=>\Carbon\Carbon::now()
+            ]);
+            return redirect()->route("getLogin")->with("success", "Email successfully verified");
         }
     }
 
@@ -278,15 +277,14 @@ class UserController extends Controller
         if (Auth::user()) {
             return view("auth.home");
         }
-        else {
-            return redirect()->route("getLogin");
-        }
+
+        return redirect()->route("getLogin");
     }
 
     public function logout(){  // Checked
         Session::flush();
         Auth::logout();
-        return redirect()->route("getLogin")->with("success","Logout successfull");
+        return redirect()->route("getLogin")->with("success", "Logout successfull");
     }
 
     public function test(){  // Checked

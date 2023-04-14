@@ -39,7 +39,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('/ajax-login',                       'ajaxLogin')            ->name('ajaxLogin');              // User Ajax Login. Authenticate the user.
 
     Route::get ('/forget-password',                  'getForgetPassword')    ->name('getForgetPassword');      // User Get ForgetPassword Page.
-    Route::post('/forget-password',                  'postForgetPassword')   ->name('postForgetPassword');     // User Post ForgetPassword.
+//    Route::post('/forget-password',                  'postForgetPassword')   ->name('postForgetPassword');     // User Post ForgetPassword.
 
     Route::get ('/reset-password/{reset_code}',      'getResetPassword')     ->name('getResetPassword');       // User Get ResetPassword Page.
     Route::post('/reset-password/{reset_code}',      'postResetPassword')    ->name('postResetPassword');      // User Post ResetPassword.
