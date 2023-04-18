@@ -160,7 +160,7 @@
                             <td colspan="2">
                                 <div class="w-100 d-flex justify-content-around">
                                     @can('delete_task', $task)
-                                    <form action="{{route('user.delete_a_task', $task->id)}}" method="post">
+                                    <form action="{{route('user.tasks.delete_a_task', $task->id)}}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         {{--                                        {{method_field('delete')}}--}}
@@ -171,7 +171,7 @@
                                     </form>
                                     @endcan
                                     @can('update_task', $task)
-                                    <form action="{{route('user.task_form_page', $task->id)}}" method="GET">
+                                    <form action="{{route('user.tasks.task_form_page', $task->id)}}" method="GET">
                                         @csrf
                                         @method('GET')
                                         {{--                                        {{method_field('get')}}--}}

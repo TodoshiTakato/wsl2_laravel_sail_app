@@ -23,12 +23,12 @@
 
         <div class="row">
             @isset($found_task)
-            <form action="{{route('user.update_a_task', $found_task->id)}}" method="POST"
+            <form action="{{route('user.tasks.update_a_task', $found_task->id)}}" method="POST"
                   id="task_info" class="col">
                 @method('PUT') {{--  {{method_field('put')}}  --}}
             @endisset
             @if(!isset($found_task))
-            <form action="{{route('user.post_a_task')}}" method="POST"
+            <form action="{{route('user.tasks.post_a_task')}}" method="POST"
                   id="task_info" class="col">
                 @method('POST') {{--  {{method_field('put')}}  --}}
             @endif

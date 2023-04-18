@@ -154,7 +154,7 @@ Route::middleware(['auth'])->group( function () {
         Route::resource('order-items', OrderItemController::class);
 
         //                            Tasks PAGE
-        Route::controller(TaskController::class)->group( function () {
+        Route::name('tasks.')->controller(TaskController::class)->group( function () {
             Route::get   ('/tasks',               'index')      ->name('tasks_main_page');
             Route::get   ('/task/{task_id}/info', 'task_info')  ->name('task_info_page');
             Route::post  ('/task',                'post')       ->name('post_a_task');

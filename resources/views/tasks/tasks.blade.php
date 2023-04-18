@@ -14,7 +14,7 @@
         <div class="row">
 
             <div class="col-2">
-                <a href="{{route('user.task_form_page')}}">
+                <a href="{{route('user.tasks.task_form_page')}}">
                     <button type="button" class="btn btn-success">
                         <i class="fas fa-plus-square"></i>
                         Add task
@@ -44,10 +44,10 @@
                         @foreach($tasks as $task)
                             <tr>
                                 <td class="col-md-4 text-break">
-                                    <a href="{{route('user.task_info_page', $task->id)}}">{{$task->name}}</a>
+                                    <a href="{{route('user.tasks.task_info_page', $task->id)}}">{{$task->name}}</a>
                                 </td>
                                 <td class="col-md-2 text-break">
-                                    <form action="{{route('user.rate_a_task', $task->id)}}" method="POST">
+                                    <form action="{{route('user.tasks.rate_a_task', $task->id)}}" method="POST">
                                         @csrf @method('POST')
                                         <input type="radio" id="rating-1" name="rating" value=1>
                                         <input type="radio" id="rating-2" name="rating" value=2>
@@ -122,7 +122,7 @@
                                 </td>
                                 <td class="col-md-2">
                                     @can('delete_task', $task)
-                                    <form action="{{route('user.delete_a_task', $task->id)}}" method="POST">
+                                    <form action="{{route('user.tasks.delete_a_task', $task->id)}}" method="POST">
                                         @csrf
                                         @method('DELETE')
 {{--                                        {{method_field('delete')}}--}}
@@ -136,7 +136,7 @@
 
                                 <td class="col-md-2">
                                     @can('update_task', $task)
-                                    <form action="{{route('user.task_form_page', $task->id)}}" method="GET">
+                                    <form action="{{route('user.tasks.task_form_page', $task->id)}}" method="GET">
                                         <button type="submit" class="btn btn-dark">
                                             <i class="fas fa-edit"></i>
                                             Edit

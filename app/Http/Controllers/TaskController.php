@@ -2,38 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TaskPostRequest;
+
 use App\Models\Product;
 use App\Models\Task;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Auth;
+
+use App\Http\Requests\TaskPostRequest;
 use Illuminate\Http\Request;
-use InvalidArgumentException;
-use Faker\Generator as Faker;
 use Illuminate\Support\Str;
-//use mysql_xdevapi\Exception;
-//use Illuminate\Support\Facades\Validator;
-//use \Debugbar;
+use Illuminate\Support\Facades\Validator;
+
+// Faker
+use Faker\Generator as Faker;
+
+// Packages
+use Barryvdh\Debugbar\Facades\Debugbar;
+
+// Others
 use function PHPUnit\Framework\isNull;
+
+// Exceptions
+use InvalidArgumentException;
+use mysql_xdevapi\Exception;
 
 
 class TaskController extends Controller
 {
     public function index()
     {
-        $string_with_256_symbols = Str::random(256);
-//        $faker = new Faker;
-//        $string_with_256_symbols = $faker->text(110);
+//        $string_with_256_symbols = Str::random(256);
+
 //        Debugbar::info($string_with_256_symbols);    // Debugbar usage example
 //        Debugbar::error('Error!');
 //        Debugbar::warning('Watch out…');
 //        Debugbar::addMessage('Another message', 'mylabel');
 
-//        $tasks = Task::with('ratings', 'user')->get();
-        $tasks = Task::with('ratings', 'user')->orderBy("created_at", "asc")->paginate(10);
-//        $tasks = Task::with('ratings')->where('user_id', Auth::id())->paginate(5);
-//        $tasks = Task::where('user_id', Auth::id())->paginate(5);
-        return view('tasks.tasks', compact('tasks', 'string_with_256_symbols'));
+//        $faker = new Faker;
+//        $string_with_256_symbols = $faker->text(110);
+
+        $tasks = Task::with('ratings', 'user')
+            ->where('user_id', Auth::id())
+            ->orderBy("created_at", "asc")
+//            ->get()  // либо это
+            ->paginate(10)  // либо это
+        ;
+
+        return view('tasks.tasks', compact(
+            'tasks',
+//            'string_with_256_symbols'
+            )
+        );
     }
 
     public function task_info($task_ID)
@@ -61,7 +81,7 @@ class TaskController extends Controller
         if (isset($validated['rating'])) {
             $task->rate($validated['rating'], $user);
         }
-        return redirect()->route('user.tasks_main_page');
+        return redirect()->route('user.tasks.tasks_main_page');
     }
     public function rate_a_task(Request $request, $task_ID)
     {
@@ -123,7 +143,7 @@ class TaskController extends Controller
             }
         }
 
-        return redirect()->route('user.tasks_main_page');
+        return redirect()->route('user.tasks.tasks_main_page');
     }
 
     public function delete(Task $task)
